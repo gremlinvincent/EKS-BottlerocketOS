@@ -1,0 +1,23 @@
+# A simple example of ClusterConfig object:
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: vgeks1
+  region: us-east-1
+
+nodeGroups:
+  - name: bottlerocket
+    instanceType: m5.xlarge
+    desiredCapacity: 1
+    amiFamily: Bottlerocket
+    labels:
+      "network-locality.example.com/public": "true"
+    bottlerocket:
+      enableAdminContainer: true
+      settings:
+        motd: "Hello, eksctl!"
+        boot:
+          init:
+            systemd.unified_cgroup_hierarchy: "1"
